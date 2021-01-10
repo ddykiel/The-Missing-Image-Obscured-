@@ -4,7 +4,7 @@ class Crot:
     self.crystal = crystal
     self.liquid = liquid
 
-  def returnRandom(self):
+  def return_random(self):
     choices = [0, 1]
     if(bool(random.choice(choices))):
       return self.crystal
