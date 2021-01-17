@@ -118,6 +118,7 @@ while run_loop:
     rand_depth=input("Write b for breadth or d for depth ")
     while (rand_depth !="b") and (rand_depth !="d"):
       rand_depth=input("Write b for breadth or d for depth ")
+    print("\n")
   
   if run_num <=1:
     rand_style = True
@@ -126,7 +127,7 @@ while run_loop:
     rand_style=input("Write l for liquid or c for crystal ")
     while (rand_style !="l") and (rand_style !="c"):
       rand_style=input("Write b for breadth or d for depth ")
-    print("rand style is:", rand_style)
+    print("\n")
 
   if run_num <=2:
     rand_artist_affinity = bool(random.choice(choices))
@@ -139,14 +140,33 @@ while run_loop:
       rand_artist_affinity = True
     else:
       rand_artist_affinity = False
+    print("\n")
 
   if run_num <=3:
     rand_ethan_hurts = bool(random.choice(choices))
-  #else user input
+  else:
+    print("\nIs Ethan dangerous or not dangerous?")
+    rand_ethan_hurts_text=input("Write d for dangerous or n for not dangerous ")
+    while (rand_ethan_hurts_text !="d") and (rand_ethan_hurts_text !="n"):
+      rand_ethan_hurts_text=input("Write d for dangerous or n for not dangerous ")
+    if(rand_ethan_hurts_text == "d"):
+      rand_ethan_hurts = True
+    else:
+      rand_ethan_hurts = False
+    print("\n")
 
   if run_num <=4:
     rand_friend_judgment = bool(random.choice(choices))
-  #else user input
+  else:
+    print("\nShould you trust your friend?")
+    rand_friend_judgment_text=input("Write t for trust or n for not trust ")
+    while (rand_friend_judgment_text !="t") and (rand_friend_judgment_text !="n"):
+     rand_friend_judgment_text=input("Write t for trust or n for not trust  ")
+    if(rand_friend_judgment_text == "t"):
+      rand_friend_judgment = True
+    else:
+      rand_friend_judgment = False
+    print("\n")
 
   story_tree = createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, rand_friend_judgment)
  
