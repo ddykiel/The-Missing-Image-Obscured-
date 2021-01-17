@@ -10,3 +10,9 @@ class Crot:
       return self.crystal
     else:
       return self.liquid
+  
+  def return_crystal(self):
+    return self.crystal
+
+  def return_liquid(self):
+    return self.liquid

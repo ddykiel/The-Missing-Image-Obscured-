@@ -26,14 +26,16 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   d = Crot("Second floor. Flows downwards. Soft ceiling. Brutal railing. Cuts.\n\"Don't eat the artwork,\" she says. \"It bites back.\"", "the floor the floor the floor flows downwards pools into ceiling blood blood blood pools and dries grown brown grows flaky grows rose petals you got in the mail turned moldy like the sun the artwork tears the artwork chews the artwork has teeth, she says, teeth teeth teeth don't be afraid they'll cut you so quick you won't even feel pain")
   e = Crot("(Even without you biting first.) The artwork gnaws. Brushstrokes like fur, hair caught in its throat.", "brushstrokes fur prickle down your throat slides down vomit the artwork has no manners the artwork touches you without permission")
 
-  section_1_text = [a, b, c, d, e]
+  section_1_text = [title, my_mother, a, b, c, d, e]
   section_1 = Section(section_1_text, "1")
 
+  f_choice_you = Crot("Is the painting you or your mother? \n The painting is you", "is the painting you or your mother \n the painting is you")
+  f_choice_mother = Crot("Is the painting you or your mother? \n The painting is your mother", "is the painting you or your mother \n the painting is your mother")
   f_you = Crot("\"But not your mother, huh?\" Quirk. Carved into lip. Sharp tooth, gleaming smile. \"At one point in my life, that would have made me jealous. Not anymore.\"", "your mother your mother no she did not eat she did not eat she did not eat you she did not love you up with love")
   f_mother = Crot("\"Your mother, too?\" Lips tighten. Old fruity skin. Bursting. \"A friend once told me all mothers are the same. I wonder how much that's true.\"", "all mothers all mothers the same with their hands linked in a circle spinning the ritual the moon wide and liquid not dry you can't understand you're not woman girl no not the way they are you should have empathy you should know this ritual changes them know no they are not the same they feel the same but only because the center whirlpools it pulls with their water up your throat you cannot see it see see see")
 
-  section_1_you_text = [f_you]
-  section_1_mother_text = [f_mother]
+  section_1_you_text = [f_choice_you, f_you]
+  section_1_mother_text = [f_choice_mother, f_mother]
 
   section_1_you = Section(section_1_you_text, "1ay")
   section_1_mother = Section (section_1_mother_text, "1am")
@@ -46,18 +48,20 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   section_2_text = [g, h, i, j]
   section_2 = Section(section_2_text, "2")
 
+  follow_ethan = Crot("Do you follow Ethan or go back to the artist? \n You follow", "do you follow ethan or go back to the artist? \n you follow")
+  dont_follow_ethan = Crot("Do you follow Ethan or go back to the artist? \n You go back", "do you follow ethan or go back to the artist? \n you go back")
   artistDangerWithEthan = Crot("Ethan curses. Broad shoulders against wall. Crack. Crumble him inside himself. \n \"Fuck!\" he says. Then turns. Dull, blinded. Sharp knives less dangerous. \"What the fuck did you say to her?\" Blunt force. Head spins. \"What the ever-locking fuck did you say to her?\"", "the boy the boy the creature crumbles falls back into himself spins faster spins a black hole yells screams spits shooting stars firesparks you stupid bastard what the fuck did you say to her what did i say what")
   artistDangerWithoutEthan = Crot("Standing in stairs. Spiral, fall. Or rise. Or stand still. \n Your head pounds. When you swallow, there's a taste of metal in your throat.", "the stairs the stairs you fall you spiral down drip-drop drip you conglomerate you smell you rot")
   artistNoDangerWithEthan = Crot("Ethan glances. Swivels his head. Still whistling. Then side-eye. Face stone house, windows closed. Movement secret, sacred. Unreachable through deep-set windows. \nSmiles broadly. Teeth dull. Wish you could read him.", "the boy the boy turns turns away the creature the creature keeps sucking the wall pays you no mind draws out the color the light the flesh turns pale the blood the blood the blood is gone the ritual the ritual what ritual lives inside the spiral the spiral the spiral of his stomach his putty intestines his pre-historic body")
   artistNoDangerWithoutEthan = Crot("Fall down stairs. Slick, almost wet. Stumble breath caught in throat. \nArtist with long dark dress, small sharp teeth. Tools held loosely in luminous hands. Silken scars knot. \"Nothing to see here,\" says she. Eyes narrow, make you small. Pointed tongue through still lips. \"You came here with a friend, didn't you? You should keep better track of them.\"", "the stairs the stairs you spiral drip-drop drip you conglomerate you smell you rot you contract you expand breath shudders out of you bones rattle bones decompose bones elasticize the woman the woman the girl the artist arrowheads in her teeth nighttime falling against her skin pale pale pale moon hands cratered veined uncooked sinewed nothing nothing to see she says why don't you believe her why does she lie when you can see her her shadow her eyes her shadow behind the moon you turn you turn you turn your face away no shadow no more your friend your friend you came here with them you held their hand your friend your friend may have fallen down with you your friend your fried clumped hair beneath your nail a morsel between your teeth your friend your friend where did they go?")
 
-  section_2a_ade_text = [artistDangerWithEthan]
+  section_2a_ade_text = [follow_ethan, artistDangerWithEthan]
   section_2a_ade = Section(section_2a_ade_text, "2a_ade")
-  section_2a_adne_text = [artistDangerWithoutEthan]
+  section_2a_adne_text = [dont_follow_ethan, artistDangerWithoutEthan]
   section_2a_adne = Section(section_2a_adne_text, "2a_ad!e")
-  section_2a_nade_text = [artistNoDangerWithEthan]
+  section_2a_nade_text = [follow_ethan, artistNoDangerWithEthan]
   section_2a_nade = Section(section_2a_nade_text, "2a_!ade")
-  section_2a_nadne_text = [artistNoDangerWithoutEthan]
+  section_2a_nadne_text = [dont_follow_ethan, artistNoDangerWithoutEthan]
   section_2a_nadne = Section(section_2a_nadne_text, "2a_!ad!e")
 
   room = Crot("Dark room. Vibrations. You came here with your best friend and now you miss them. Walls squelch, suction. Get closer. \nPress against you. Wet soft warm. You sink through. Start to decompose.","Dark room. Vibrations. You came here with your best friend and now you miss them. Walls squelch, suction. Get closer. \nPress against you. Wet soft warm. You sink through. Start to decompose.")
@@ -80,10 +84,22 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
     story_graph.add_edge(section_1_mother, section_2a_ade)
     story_graph.add_edge(section_1_you, section_2a_nadne)
     story_graph.add_edge(section_1_mother, section_2a_adne)
+  
+  if type(rand_depth)==bool:
+    if rand_depth:
+      story_tree = nx.dfs_tree(story_graph)
+    
+    if not rand_depth:
+      story_tree = nx.bfs_tree(story_graph, section_1)
+  else:
+    if rand_depth == "d":
+        story_tree = nx.dfs_tree(story_graph)
+      
+    if rand_depth == "b":
+      story_tree = nx.bfs_tree(story_graph, section_1)
 
-  print("Story graph complete!")
 
-  return story_graph
+  return story_tree
 
 def continue_on(): #Function to allow reader to continue
   input("\nPRESS ENTER  ")
@@ -97,15 +113,32 @@ while run_loop:
 
   if run_num <=0:
     rand_depth = bool(random.choice(choices))
-  #else user input
+  else:
+    print("\nWould you like breadth or depth?")
+    rand_depth=input("Write b for breadth or d for depth ")
+    while (rand_depth !="b") and (rand_depth !="d"):
+      rand_depth=input("Write b for breadth or d for depth ")
   
   if run_num <=1:
     rand_style = True
-  #else user input
+  else:
+    print("\nWould you like liquid or crystal?")
+    rand_style=input("Write l for liquid or c for crystal ")
+    while (rand_style !="l") and (rand_style !="c"):
+      rand_style=input("Write b for breadth or d for depth ")
+    print("rand style is:", rand_style)
 
   if run_num <=2:
     rand_artist_affinity = bool(random.choice(choices))
-  #else user input
+  else:
+    print("\nWould you like artist affinity or no artist affinity?")
+    rand_artist_affinity_text=input("Write a for affinity or n for no affinity ")
+    while (rand_artist_affinity_text !="a") and (rand_artist_affinity_text !="n"):
+      rand_artist_affinity_text=input("Write a for affinity or n for no affinity ")
+    if(rand_artist_affinity_text == "a"):
+      rand_artist_affinity = True
+    else:
+      rand_artist_affinity = False
 
   if run_num <=3:
     rand_ethan_hurts = bool(random.choice(choices))
@@ -115,18 +148,19 @@ while run_loop:
     rand_friend_judgment = bool(random.choice(choices))
   #else user input
 
-  story_graph = createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, rand_friend_judgment)
-
-  run_num += 1
-
-  story_tree = nx.dfs_tree(story_graph)
-
+  story_tree = createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, rand_friend_judgment)
+ 
   for s in story_tree:
     crot_list = s.crot_list
     for c in range(len(crot_list)):
-      print(crot_list[c].return_random())
+      if type(rand_style)==bool:
+        print(crot_list[c].return_random())
+      elif rand_style == "l":
+        print(crot_list[c].return_liquid())
+      else:
+        print(crot_list[c].return_crystal())
       continue_on()
 
-  print("EOF reached!")
+  print("NOTE: The story ends here for now. I still have to write one more choice, which makes up the ending.")
 
-  break
+  run_num += 1
