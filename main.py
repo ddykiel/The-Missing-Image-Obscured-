@@ -17,7 +17,7 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   #Add choices as text at end of section
   # (clarify what options are being shown and why)
 
-  title = Crot("the missing image", "The missing image")
+  title = Crot("\n_____________________________\nThe Missing Image", "\n_____________________________\nthe missing image image")
   my_mother = Crot("My mother, my mother, my \n My mother ate me up with love.", "my mother my mother yes she ate she ate she ate me up did she say how she said she ate me up with love")
 
   a = Crot("Chocolate halls. Dripped ceilings. Sugar breath.", "the halls drip down saliva thick burns like oils under fingernails the ceilings press close get caught in your throat")
@@ -38,7 +38,7 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   section_1_mother_text = [f_choice_mother, f_mother]
 
   section_1_you = Section(section_1_you_text, "1ay")
-  section_1_mother = Section (section_1_mother_text, "1am")
+  section_1_mother = Section(section_1_mother_text, "1am")
 
   g = Crot("Ethan. Sugar-spun hair. Butterscotch curls. Candy-slick tongue between filmed teeth.", "the boy the boy blonde hair like an angel curled not subverted innocent pink teeth with slime the animal the creature no spine no nose no mouth no ears bumpy little eyes existed before us in the caves in the soft warm dark where it ate it crawled all mouth it sucked at the walls and drew trails of slime")
   h = Crot("Drag eyes over him. No artist anymore. So be it: you're not sure she's your friend.", "the create ignores the creature keeps sucking keeps moving keeps its slime the artist the woman she left but she's no better you looked closer but the creature has no answer tells no secrets")
@@ -74,21 +74,20 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   story_graph.add_edge(section_1_mother, section_2)
 
   if rand_artist_affinity:
-    story_graph.add_edge(section_1_you, section_2a_ade)
-    story_graph.add_edge(section_1_mother, section_2a_nade)
-    story_graph.add_edge(section_1_you, section_2a_adne)
-    story_graph.add_edge(section_1_mother, section_2a_nadne)
+    story_graph.add_edge(section_2, section_2a_ade)
+    story_graph.add_edge(section_2, section_2a_nade)
+    story_graph.add_edge(section_2, section_2a_adne)
+    story_graph.add_edge(section_2, section_2a_nadne)
   
   if not rand_artist_affinity:
-    story_graph.add_edge(section_1_you, section_2a_nade)
-    story_graph.add_edge(section_1_mother, section_2a_ade)
-    story_graph.add_edge(section_1_you, section_2a_nadne)
-    story_graph.add_edge(section_1_mother, section_2a_adne)
+    story_graph.add_edge(section_2, section_2a_nade)
+    story_graph.add_edge(section_2, section_2a_ade)
+    story_graph.add_edge(section_2, section_2a_nadne)
+    story_graph.add_edge(section_2, section_2a_adne)
   
   if type(rand_depth)==bool:
     if rand_depth:
-      story_tree = nx.dfs_tree(story_graph)
-    
+      story_tree = nx.dfs_tree(story_graph)   
     if not rand_depth:
       story_tree = nx.bfs_tree(story_graph, section_1)
   else:
@@ -98,6 +97,9 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
     if rand_depth == "b":
       story_tree = nx.bfs_tree(story_graph, section_1)
 
+  story_tree = nx.dfs_tree(story_graph)
+  #story_tree = list(nx.dfs_edges(story_tree))
+  #story_tree = nx.edge_dfs(story_tree, section_1)
 
   return story_tree
 
@@ -118,7 +120,6 @@ while run_loop:
     rand_depth=input("Write b for breadth or d for depth ")
     while (rand_depth !="b") and (rand_depth !="d"):
       rand_depth=input("Write b for breadth or d for depth ")
-    print("\n")
   
   if run_num <=1:
     rand_style = True
@@ -126,8 +127,7 @@ while run_loop:
     print("\nWould you like liquid or crystal?")
     rand_style=input("Write l for liquid or c for crystal ")
     while (rand_style !="l") and (rand_style !="c"):
-      rand_style=input("Write b for breadth or d for depth ")
-    print("\n")
+      rand_style=input("Write l for liquid or c for crystal ")
 
   if run_num <=2:
     rand_artist_affinity = bool(random.choice(choices))
@@ -140,7 +140,6 @@ while run_loop:
       rand_artist_affinity = True
     else:
       rand_artist_affinity = False
-    print("\n")
 
   if run_num <=3:
     rand_ethan_hurts = bool(random.choice(choices))
@@ -153,7 +152,6 @@ while run_loop:
       rand_ethan_hurts = True
     else:
       rand_ethan_hurts = False
-    print("\n")
 
   if run_num <=4:
     rand_friend_judgment = bool(random.choice(choices))
@@ -166,11 +164,13 @@ while run_loop:
       rand_friend_judgment = True
     else:
       rand_friend_judgment = False
-    print("\n")
 
   story_tree = createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, rand_friend_judgment)
- 
-  for s in story_tree:
+  
+  for s in story_tree.edges:
+    print(type(s))
+    #print(s.crot_list)
+    """
     crot_list = s.crot_list
     for c in range(len(crot_list)):
       if type(rand_style)==bool:
@@ -179,7 +179,14 @@ while run_loop:
         print(crot_list[c].return_liquid())
       else:
         print(crot_list[c].return_crystal())
-      continue_on()
+      continue_on() 
+    """
+
+  #To fix BFS: 
+  #Combine section 2 with section 2a (so we maintain what outcomes lead to what)
+  #hard-code the BFS order list
+  #remember to incorporate (or not) room & repetition
+  
 
   print("NOTE: The story ends here for now. I still have to write one more choice, which makes up the ending.")
 
