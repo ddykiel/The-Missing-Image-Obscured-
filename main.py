@@ -3,12 +3,17 @@ from Crot import Crot
 from Section import Section
 import networkx as nx
 
+"""TODO
+This code is hell because I'm meeting a deadline for tonight. The bfs implementation uses networkx and the dfs implementation is hard-coded. Realized late networkx doesn't have some capabilties I need (graphs of custom objects where you can call their methods).
+- Refactor code without using networkx (make custom Graph class or find a different library)
+- Based on workshop feedback: incorporated room/repetition
+"""
 #Reference on DiGraph: https://networkx.org/documentation/stable/reference/classes/digraph.html#methods
 
 run_loop = True
 run_num = 0
 
-def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, rand_friend_judgment):
+def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_friend_judgment):
 
   """ Creates crots and places crots into sections.
       Turns sections into a graph, using an adjacency list representation.
@@ -46,7 +51,7 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   j = Crot("Doesn't wait. Turns again, hands buried behind head. Starts walking.", "the top spins further the gravity loosens its grip another ring out another planet far away the boy the create moving so far away spinning out from under you spinning out from your center")
 
   section_2_text = [g, h, i, j]
-  section_2 = Section(section_2_text, "2")
+  #section_2 = Section(section_2_text, "2")
 
   follow_ethan = Crot("Do you follow Ethan or go back to the artist? \n You follow", "do you follow ethan or go back to the artist? \n you follow")
   dont_follow_ethan = Crot("Do you follow Ethan or go back to the artist? \n You go back", "do you follow ethan or go back to the artist? \n you go back")
@@ -55,13 +60,13 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   artistNoDangerWithEthan = Crot("Ethan glances. Swivels his head. Still whistling. Then side-eye. Face stone house, windows closed. Movement secret, sacred. Unreachable through deep-set windows. \nSmiles broadly. Teeth dull. Wish you could read him.", "the boy the boy turns turns away the creature the creature keeps sucking the wall pays you no mind draws out the color the light the flesh turns pale the blood the blood the blood is gone the ritual the ritual what ritual lives inside the spiral the spiral the spiral of his stomach his putty intestines his pre-historic body")
   artistNoDangerWithoutEthan = Crot("Fall down stairs. Slick, almost wet. Stumble breath caught in throat. \nArtist with long dark dress, small sharp teeth. Tools held loosely in luminous hands. Silken scars knot. \"Nothing to see here,\" says she. Eyes narrow, make you small. Pointed tongue through still lips. \"You came here with a friend, didn't you? You should keep better track of them.\"", "the stairs the stairs you spiral drip-drop drip you conglomerate you smell you rot you contract you expand breath shudders out of you bones rattle bones decompose bones elasticize the woman the woman the girl the artist arrowheads in her teeth nighttime falling against her skin pale pale pale moon hands cratered veined uncooked sinewed nothing nothing to see she says why don't you believe her why does she lie when you can see her her shadow her eyes her shadow behind the moon you turn you turn you turn your face away no shadow no more your friend your friend you came here with them you held their hand your friend your friend may have fallen down with you your friend your fried clumped hair beneath your nail a morsel between your teeth your friend your friend where did they go?")
 
-  section_2a_ade_text = [follow_ethan, artistDangerWithEthan]
+  section_2a_ade_text = [g, h, i, j, follow_ethan, artistDangerWithEthan]
   section_2a_ade = Section(section_2a_ade_text, "2a_ade")
-  section_2a_adne_text = [dont_follow_ethan, artistDangerWithoutEthan]
+  section_2a_adne_text = [g, h, i, j,dont_follow_ethan, artistDangerWithoutEthan]
   section_2a_adne = Section(section_2a_adne_text, "2a_ad!e")
-  section_2a_nade_text = [follow_ethan, artistNoDangerWithEthan]
+  section_2a_nade_text = [g, h, i, j, follow_ethan, artistNoDangerWithEthan]
   section_2a_nade = Section(section_2a_nade_text, "2a_!ade")
-  section_2a_nadne_text = [dont_follow_ethan, artistNoDangerWithoutEthan]
+  section_2a_nadne_text = [g, h, i, j, dont_follow_ethan, artistNoDangerWithoutEthan]
   section_2a_nadne = Section(section_2a_nadne_text, "2a_!ad!e")
 
   room = Crot("Dark room. Vibrations. You came here with your best friend and now you miss them. Walls squelch, suction. Get closer. \nPress against you. Wet soft warm. You sink through. Start to decompose.","Dark room. Vibrations. You came here with your best friend and now you miss them. Walls squelch, suction. Get closer. \nPress against you. Wet soft warm. You sink through. Start to decompose.")
@@ -70,36 +75,34 @@ def createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, 
   story_graph.add_edge(section_1, section_1_you)
   story_graph.add_edge(section_1, section_1_mother)
 
-  story_graph.add_edge(section_1_you, section_2)
-  story_graph.add_edge(section_1_mother, section_2)
+  dfs_aa = [section_1, section_1_you, section_2a_ade, section_2a_adne, section_1_mother, section_2a_nade, section_2a_nadne]
+  dfs_naa = [section_1, section_1_you, section_2a_nade, section_2a_nadne, section_1_mother, section_2a_ade, section_2a_adne]
 
   if rand_artist_affinity:
-    story_graph.add_edge(section_2, section_2a_ade)
-    story_graph.add_edge(section_2, section_2a_nade)
-    story_graph.add_edge(section_2, section_2a_adne)
-    story_graph.add_edge(section_2, section_2a_nadne)
+    story_graph.add_edge(section_1_you, section_2a_ade)
+    story_graph.add_edge(section_1_mother, section_2a_nade)
+    story_graph.add_edge(section_1_you, section_2a_adne)
+    story_graph.add_edge(section_1_mother, section_2a_nadne)
+    dfs = dfs_aa
   
   if not rand_artist_affinity:
-    story_graph.add_edge(section_2, section_2a_nade)
-    story_graph.add_edge(section_2, section_2a_ade)
-    story_graph.add_edge(section_2, section_2a_nadne)
-    story_graph.add_edge(section_2, section_2a_adne)
-  
+    story_graph.add_edge(section_1_you, section_2a_nade)
+    story_graph.add_edge(section_1_mother, section_2a_ade)
+    story_graph.add_edge(section_1_you, section_2a_nadne)
+    story_graph.add_edge(section_1_mother, section_2a_adne)
+    dfs = dfs_naa
+
   if type(rand_depth)==bool:
     if rand_depth:
-      story_tree = nx.dfs_tree(story_graph)   
+      story_tree = dfs   
     if not rand_depth:
       story_tree = nx.bfs_tree(story_graph, section_1)
   else:
     if rand_depth == "d":
-        story_tree = nx.dfs_tree(story_graph)
+        story_tree = dfs
       
     if rand_depth == "b":
       story_tree = nx.bfs_tree(story_graph, section_1)
-
-  story_tree = nx.dfs_tree(story_graph)
-  #story_tree = list(nx.dfs_edges(story_tree))
-  #story_tree = nx.edge_dfs(story_tree, section_1)
 
   return story_tree
 
@@ -142,18 +145,6 @@ while run_loop:
       rand_artist_affinity = False
 
   if run_num <=3:
-    rand_ethan_hurts = bool(random.choice(choices))
-  else:
-    print("\nIs Ethan dangerous or not dangerous?")
-    rand_ethan_hurts_text=input("Write d for dangerous or n for not dangerous ")
-    while (rand_ethan_hurts_text !="d") and (rand_ethan_hurts_text !="n"):
-      rand_ethan_hurts_text=input("Write d for dangerous or n for not dangerous ")
-    if(rand_ethan_hurts_text == "d"):
-      rand_ethan_hurts = True
-    else:
-      rand_ethan_hurts = False
-
-  if run_num <=4:
     rand_friend_judgment = bool(random.choice(choices))
   else:
     print("\nShould you trust your friend?")
@@ -165,12 +156,9 @@ while run_loop:
     else:
       rand_friend_judgment = False
 
-  story_tree = createGraph(rand_depth, rand_style, rand_artist_affinity, rand_ethan_hurts, rand_friend_judgment)
+  story_tree = createGraph(rand_depth, rand_style, rand_artist_affinity, rand_friend_judgment)
   
-  for s in story_tree.edges:
-    print(type(s))
-    #print(s.crot_list)
-    """
+  for s in story_tree:
     crot_list = s.crot_list
     for c in range(len(crot_list)):
       if type(rand_style)==bool:
@@ -180,13 +168,6 @@ while run_loop:
       else:
         print(crot_list[c].return_crystal())
       continue_on() 
-    """
-
-  #To fix BFS: 
-  #Combine section 2 with section 2a (so we maintain what outcomes lead to what)
-  #hard-code the BFS order list
-  #remember to incorporate (or not) room & repetition
-  
 
   print("NOTE: The story ends here for now. I still have to write one more choice, which makes up the ending.")
 
